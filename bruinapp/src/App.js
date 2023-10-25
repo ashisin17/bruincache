@@ -7,7 +7,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          THIS IS ME editing ASHITA branch
+          THIS IS ME editing ASHITA branch THEN merged to main
           Edit <code>src/App.js</code> and save to reload.
         </p>
         <a
