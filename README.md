@@ -1,2 +1,2 @@
-# bearhunt
+# BruinCache
 scavenger hunt
