@@ -1,13 +1,18 @@
 import { Wrapper, AdvancedMarkerElement } from "@googlemaps/react-wrapper";
 import { useRef, useEffect } from "react";
+import './App.css'
+
+//pages import
+import Home from "./pages/home"
 
 const App = () => (
   <div>
-	<Wrapper apiKey={"AIzaSyCl4rT1OsaqKlRyTXY0lQuF0RFG1SXaYXY"}>
+    <Home/>
+	{/* <Wrapper apiKey={"AIzaSyCl4rT1OsaqKlRyTXY0lQuF0RFG1SXaYXY"}>
 		<MyMapComponent center={{lat:34.07, lng:-118.445}} zoom={15}>
 		<p center={{lat:34.07, lng:-118.445}} zoom={15}>add</p>
 		</MyMapComponent>
-	</Wrapper>
+	</Wrapper> */}
   </div>
 )
 
