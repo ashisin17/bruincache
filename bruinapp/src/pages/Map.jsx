@@ -2,7 +2,26 @@ import { Wrapper } from "@googlemaps/react-wrapper";
 import { useRef, useEffect } from "react";
 import { State, useState } from "react";
 import 'reactjs-popup/dist/index.css';
-const locations = [{lat:34.07, lng:-118.445},{lat:34.08, lng:-118.445}];
+
+import { initializeApp } from 'firebase/app';
+import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
+
+const locations = [];
+
+const firebaseConfig = {
+  apiKey: "AIzaSyALtAMLyqRTezdUkyNXbsOCwxeME_piokQ",
+  authDomain: "bruincache-1c406.firebaseapp.com",
+  projectId: "bruincache-1c406",
+  storageBucket: "bruincache-1c406.appspot.com",
+  messagingSenderId: "1014750408853",
+  appId: "1:1014750408853:web:3ccbfbf2f4ab3a5dbe6b9c",
+  measurementId: "G-XPHRYSNR7Y"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
 
 export default function Map() {
   const [popup, setPopup] = useState(Array(locations.length).fill(false));
@@ -68,7 +87,7 @@ function MyMapComponent({
   zoom: number;
 }) {
   const ref = useRef();
-
+	const [loaded, setLoaded] = useState(0);
   useEffect(() => {
     // Display the map
     if (ref.current) {
@@ -76,10 +95,25 @@ function MyMapComponent({
         center: center,
         zoom: zoom,
       });
-		//const { AdvancedMarkerElement } = google.maps.importLibrary("marker");
-	for(let i = 0; i < locations.length; i++) {
-		newMarker(locations[i], map, i);
+	async function loadMarkers() {
+		setLoaded(true);
+		const querySnapshot = await getDocs(collection(db, "caches"));
+		//console.log(querySnapshot);
+		querySnapshot.forEach((doc) => {
+			locations.push({lat:doc.data().location.latitude, lng:doc.data().location.longitude});
+			console.log(locations);
+		});
+		for(let i = 0; i < locations.length; i++) {
+			newMarker(locations[i], map, i);
+		}
 	}
+	if(loaded != true) {
+		setLoaded(true);
+		loadMarkers();
+	}
+	
+		//const { AdvancedMarkerElement } = google.maps.importLibrary("marker");
+	
   // Displays single markers on map when called
       //addSingleMarkers({ locations, map });
     }
@@ -90,11 +124,12 @@ function MyMapComponent({
 	var marker = new google.maps.Marker({
 	  position: location, map:map, key:location
 	});
-	google.maps.event.addListener(marker, 'click', function(evt) {
+	google.maps.event.addListener(marker, 'click', async function(evt) {
 		//setIsOpen(true);
 		//alert(marker.position);
 		setpop(i);
 		//alert(i);;
+		
     })
 
 	return marker;
