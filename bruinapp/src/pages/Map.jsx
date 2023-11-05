@@ -1,14 +1,12 @@
-import { Wrapper, AdvancedMarkerElement } from "@googlemaps/react-wrapper";
+import { Wrapper } from "@googlemaps/react-wrapper";
 import { useRef, useEffect } from "react";
-import { Popup } from "reactjs-popup";
 import { State, useState } from "react";
-import {View} from "react";
 import 'reactjs-popup/dist/index.css';
 const locations = [{lat:34.07, lng:-118.445},{lat:34.08, lng:-118.445}];
 
 export default function Map() {
   const [popup, setPopup] = useState(Array(locations.length).fill(false));
-  
+
   function handlePopup(i) {
 	  let nextPop = popup.slice();
 	  nextPop[i] = true;
@@ -39,7 +37,7 @@ export default function Map() {
 	{
 		listPopups()
 	}
-		
+
   </div>
   </>)
 }
@@ -98,17 +96,13 @@ function MyMapComponent({
 		setpop(i);
 		//alert(i);;
     })
-	
+
 	return marker;
 }
   return (<>
   <div style={{ height: '100vh', width: '100vw' }} ref={ref} id="map" >
   </div>
   </>)
-  
-  
+
+
 }
-
-
-  
-  
