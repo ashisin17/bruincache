@@ -2,7 +2,17 @@ import { Wrapper } from "@googlemaps/react-wrapper";
 import { useRef, useEffect } from "react";
 import { State, useState } from "react";
 import 'reactjs-popup/dist/index.css';
-const locations = [{lat:34.07, lng:-118.445},{lat:34.08, lng:-118.445}];
+
+import { initializeApp } from 'firebase/app';
+import { getFirestore, collection, getDocs, addDoc, doc, query, where } from 'firebase/firestore/lite';
+import app from "../firebase"
+const locations = [];
+
+
+
+// Initialize Firebase
+const db = getFirestore(app);
+
 
 export default function Map() {
   const [popup, setPopup] = useState(Array(locations.length).fill(false));
@@ -67,8 +77,10 @@ function MyMapComponent({
   center: google.maps.LatLngLiteral;
   zoom: number;
 }) {
-  const ref = useRef();
 
+  const ref = useRef();
+	const [loaded, setLoaded] = useState(0);
+	const [results, setResults] = useState([])
   useEffect(() => {
     // Display the map
     if (ref.current) {
@@ -76,10 +88,26 @@ function MyMapComponent({
         center: center,
         zoom: zoom,
       });
-		//const { AdvancedMarkerElement } = google.maps.importLibrary("marker");
-	for(let i = 0; i < locations.length; i++) {
-		newMarker(locations[i], map, i);
+	async function loadMarkers() {
+		setLoaded(true);
+		const querySnapshot = await getDocs(collection(db, "caches"));
+		//console.log(querySnapshot);
+		querySnapshot.forEach((doc) => {
+			locations.push({lat:parseFloat(doc.data().location.lat), lng:parseFloat(doc.data().location.lng)});
+			console.log(locations);
+		});
+		for(let i = 0; i < locations.length; i++) {
+			newMarker(locations[i], map, i);
+			console.log(locations[i]);
+		}
 	}
+	if(loaded != true) {
+		setLoaded(true);
+		loadMarkers();
+	}
+	
+		//const { AdvancedMarkerElement } = google.maps.importLibrary("marker");
+	
   // Displays single markers on map when called
       //addSingleMarkers({ locations, map });
     }
@@ -90,19 +118,68 @@ function MyMapComponent({
 	var marker = new google.maps.Marker({
 	  position: location, map:map, key:location
 	});
-	google.maps.event.addListener(marker, 'click', function(evt) {
+	google.maps.event.addListener(marker, 'click', async function(evt) {
 		//setIsOpen(true);
 		//alert(marker.position);
 		setpop(i);
 		//alert(i);;
+		
     })
 
 	return marker;
-}
+	}
+   async function send () {
+	   //don't use get element and input forms like this, do it through react
+	   //I don't know how to do proper frontend, this is for backend testing only
+		await addDoc(collection(db, "caches"), {
+		  name: document.getElementById("name").value,
+		  location: {lat:document.getElementById("lat").value, lng:document.getElementById("lng").value}
+		});
+  }
+  async function search(name) {
+		const res = [];
+		const q = query(collection(db, "caches"), where("name", "==", name));
+		const querySnapshot = await getDocs(q);
+		console.log(querySnapshot);
+		querySnapshot.forEach((doc) => {
+		  // doc.data() is never undefined for query doc snapshots
+		  console.log(doc.id, " => ", doc.data().name);
+		  res.push({id: doc.id, name: doc.data().name});
+		});
+		setResults(res);
+		
+  }
   return (<>
   <div style={{ height: '100vh', width: '100vw' }} ref={ref} id="map" >
   </div>
+	<p>PROOF of CONCEPT ONLY, so you can see how to do it. Make this secure and good and move it away <br/>
+	Just want you to see how the send function works </p><br></br>
+	<form>CREATE NEW CACHE
+	<p>Name:</p><input type="text" id="name"></input>
+	<p>Latitude:</p><input type="text" id="lat"></input>
+	<p>Longitude:</p><input type="text" id="lng"></input>
+	</form>
+	<button onClick={send}>SEND</button>
+	<p>SEARCH HERE </p>
+	<p>Name:</p><form><input type="text" id="search_name"></input></form>
+	<button onClick={() => search(document.getElementById("search_name").value)}>SEND</button>
+		<ul>
+		{results.length > 0 && results.map(results => (
+			<ResultItem res={results}/>
+		))}
+		</ul>
   </>)
 
 
+}
+
+
+function ResultItem(props) {
+    const { res } = props
+
+    return (
+        <li key={res.id}>
+            <h3>{res.id}</h3>
+        </li>
+    )
 }
