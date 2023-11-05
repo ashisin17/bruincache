@@ -4,7 +4,7 @@ import { State, useState } from "react";
 import 'reactjs-popup/dist/index.css';
 
 import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
+import { getFirestore, collection, getDocs, addDoc, doc } from 'firebase/firestore/lite';
 
 const locations = [];
 
@@ -100,11 +100,12 @@ function MyMapComponent({
 		const querySnapshot = await getDocs(collection(db, "caches"));
 		//console.log(querySnapshot);
 		querySnapshot.forEach((doc) => {
-			locations.push({lat:doc.data().location.latitude, lng:doc.data().location.longitude});
+			locations.push({lat:parseFloat(doc.data().location.lat), lng:parseFloat(doc.data().location.lng)});
 			console.log(locations);
 		});
 		for(let i = 0; i < locations.length; i++) {
 			newMarker(locations[i], map, i);
+			console.log(locations[i]);
 		}
 	}
 	if(loaded != true) {
@@ -133,10 +134,24 @@ function MyMapComponent({
     })
 
 	return marker;
-}
+	}
+   async function send () {
+	   //alert(document.getElementById("name").value);
+		await addDoc(collection(db, "caches"), {
+		  name: document.getElementById("name").value,
+		  location: {lat:document.getElementById("lat").value, lng:document.getElementById("lng").value}
+		});
+  }
   return (<>
   <div style={{ height: '100vh', width: '100vw' }} ref={ref} id="map" >
   </div>
+  <p>PROOF of CONCEPT ONLY, so you can see how to do it </p><br></br>
+	<form>
+	<p>Name:</p><input type="text" id="name"></input>
+	<p>Latitude:</p><input type="text" id="lat"></input>
+	<p>Longitude:</p><input type="text" id="lng"></input>
+	</form>
+	<button onClick={send}>SEND</button>
   </>)
 
 
