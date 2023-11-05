@@ -4,22 +4,13 @@ import { State, useState } from "react";
 import 'reactjs-popup/dist/index.css';
 
 import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, getDocs, addDoc, doc } from 'firebase/firestore/lite';
-
+import { getFirestore, collection, getDocs, addDoc, doc, query, where } from 'firebase/firestore/lite';
+import app from "../firebase"
 const locations = [];
 
-const firebaseConfig = {
-  apiKey: "AIzaSyALtAMLyqRTezdUkyNXbsOCwxeME_piokQ",
-  authDomain: "bruincache-1c406.firebaseapp.com",
-  projectId: "bruincache-1c406",
-  storageBucket: "bruincache-1c406.appspot.com",
-  messagingSenderId: "1014750408853",
-  appId: "1:1014750408853:web:3ccbfbf2f4ab3a5dbe6b9c",
-  measurementId: "G-XPHRYSNR7Y"
-};
+
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 
@@ -86,8 +77,10 @@ function MyMapComponent({
   center: google.maps.LatLngLiteral;
   zoom: number;
 }) {
+
   const ref = useRef();
 	const [loaded, setLoaded] = useState(0);
+	const [results, setResults] = useState([])
   useEffect(() => {
     // Display the map
     if (ref.current) {
@@ -136,23 +129,57 @@ function MyMapComponent({
 	return marker;
 	}
    async function send () {
-	   //alert(document.getElementById("name").value);
+	   //don't use get element and input forms like this, do it through react
+	   //I don't know how to do proper frontend, this is for backend testing only
 		await addDoc(collection(db, "caches"), {
 		  name: document.getElementById("name").value,
 		  location: {lat:document.getElementById("lat").value, lng:document.getElementById("lng").value}
 		});
   }
+  async function search(name) {
+		const res = [];
+		const q = query(collection(db, "caches"), where("name", "==", name));
+		const querySnapshot = await getDocs(q);
+		console.log(querySnapshot);
+		querySnapshot.forEach((doc) => {
+		  // doc.data() is never undefined for query doc snapshots
+		  console.log(doc.id, " => ", doc.data().name);
+		  res.push({id: doc.id, name: doc.data().name});
+		});
+		setResults(res);
+		
+  }
   return (<>
   <div style={{ height: '100vh', width: '100vw' }} ref={ref} id="map" >
   </div>
-  <p>PROOF of CONCEPT ONLY, so you can see how to do it </p><br></br>
-	<form>
+	<p>PROOF of CONCEPT ONLY, so you can see how to do it. Make this secure and good and move it away <br/>
+	Just want you to see how the send function works </p><br></br>
+	<form>CREATE NEW CACHE
 	<p>Name:</p><input type="text" id="name"></input>
 	<p>Latitude:</p><input type="text" id="lat"></input>
 	<p>Longitude:</p><input type="text" id="lng"></input>
 	</form>
 	<button onClick={send}>SEND</button>
+	<p>SEARCH HERE </p>
+	<p>Name:</p><form><input type="text" id="search_name"></input></form>
+	<button onClick={() => search(document.getElementById("search_name").value)}>SEND</button>
+		<ul>
+		{results.length > 0 && results.map(results => (
+			<ResultItem res={results}/>
+		))}
+		</ul>
   </>)
 
 
+}
+
+
+function ResultItem(props) {
+    const { res } = props
+
+    return (
+        <li key={res.id}>
+            <h3>{res.id}</h3>
+        </li>
+    )
 }
