@@ -107,6 +107,7 @@ function GMapComponent({
 		  rating: 0,
 		});
   }
+  
   async function search_owner(name) {
 		const res = [];
 		const q = query(collection(db, "caches"), where("owner", "==", name));
@@ -163,6 +164,10 @@ function GMapComponent({
 			<ListResultItem res={results}/>
 		))}
 		</ul>
+		
+		
+	
+	
   </>)
 
 
