@@ -8,10 +8,10 @@ import "./App.css";
 export default function App () {
 	return (
 		<Router>
-			{/* Set up your navigation or header component here if needed */}
+			{/* Set up header component here if not header.tsx */}
 			<Routes>
-				<Route exact path="/" element={Map} />
-				<Route path="/profile" element={Profile} /> {/**Just add route to ur pgs */}
+				<Route exact path="/" Component={Map} /> {/* replaced element with component for it to work :(( */}
+				<Route path="/profile" Component={Profile} /> {/**Just add route to ur pgs */}
 			</Routes>
 		</Router>
 		)
