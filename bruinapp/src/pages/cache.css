@@ -1,4 +1,4 @@
-import styled from "styled-components";
+/* import styled from "styled-components";
 
 // For styling any nested component, Overlay use the styled method.
 // This method works perfectly on all of your any third-party component, as long as they attach the passed className prop to a DOM element.
@@ -55,4 +55,4 @@ export const StyledTaskbar = styled(Taskbar)`
   position: absolute;
   left: 0;
   top: 0;
-`;
+`; */
