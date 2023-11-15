@@ -13,7 +13,7 @@ export default function App () {
 			<Routes>
 				<Route exact path="/" Component={Map} /> {/* replaced element with component for it to work :(( */}
 				<Route path="/profile" Component={Profile} /> {/**Just add route to ur pgs */}
-				<Route path="/login" Component={<Profile />} />
+				<Route path="/login" element={<Login />} />
 			</Routes>
 		</Router>
 		)
