@@ -5,6 +5,7 @@ import Profile from "./pages/profile.js";
 import Map from "./pages/Map"
 import Login from './pages/login';
 import Header from './pages/header';
+import Create from './pages/create';
 import "./App.css";
 
 export default function App () {
@@ -17,6 +18,7 @@ export default function App () {
 				<Route exact path="/" Component={Map} /> {/* replaced element with component for it to work :(( */}
 				<Route path="/profile" Component={Profile} /> {/**Just add route to ur pgs */}
 				<Route path="/login" element={<Login />} />
+				<Route path="/create" element={<Create />} />
 			</Routes>
 		</Router>
 		)
