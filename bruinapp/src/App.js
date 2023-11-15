@@ -1,18 +1,12 @@
-import React from "react";
-// import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Profile from "./pages/profile.js"; 
-import Map from "./pages/Map"
-import "./App.css";
+import  Map  from "./pages/Map";
+import React from 'react';
+import Header from './pages/header';
+import Login from './pages/login';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
 
 export default function App () {
 	return (
-		<Router>
-			{/* Set up header component here if not header.tsx */}
-			<Routes>
-				<Route exact path="/" Component={Map} /> {/* replaced element with component for it to work :(( */}
-				<Route path="/profile" Component={Profile} /> {/**Just add route to ur pgs */}
-			</Routes>
-		</Router>
+		<Map />
 		)
 }

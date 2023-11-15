@@ -1,58 +1,98 @@
-import styled from "styled-components";
+input[type=text] {
+  width: 92%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
 
-// For styling any nested component, Overlay use the styled method.
-// This method works perfectly on all of your any third-party component, as long as they attach the passed className prop to a DOM element.
-// Here an example: https://gist.github.com/Miniplop/80b042d1b44293329ef7332fd47b770c
+.in-line-tb{
+  width: 60%;
+}
 
-// Nested component imports
-import {
-  Background,
-  Information,
-  SubmitButton,
-  BrokenButton,
-  RateButton,
-  BackButton,
-  Taskbar
-} from "components";
+input[type=number] {
+  width: 8%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
 
-export const Cache = styled.div`
-  background: linear-gradient(
-    180deg,
-    rgba(126, 140, 156, 0) 100%,
-    rgba(255, 255, 255, 0) 100%
-  );
-  position: relative;
-`;
-export const StyledBackground = styled(Background)`
-  position: relative;
-`;
-export const StyledInformation = styled(Information)`
+ul {
+  padding: 0px 40px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 10px;
+  /* or 140% */
+  letter-spacing: -0.02em;
+}
+
+h1 {
+  padding: 5px 30px;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 60px;
+  line-height: 55px;
+  /* identical to box height, or 92% */
+  letter-spacing: -0.02em;
+
+  color: #2B7A78;
+}
+
+h2 {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 30px;
+  line-height: 55px;
+  /* identical to box height, or 92% */
+  letter-spacing: -0.02em;
+
+  color: #2B7A78;
+}
+
+.review-title {
+  padding-left: 30px;
+  margin-top: 10px;
+  margin-bottom: -15px;
+}
+
+/* Back Button */
+.back-button{
+position: absolute;
+left: 1.5%;
+right: 94.06%;
+top: 4.5%;
+bottom: 90.55%;
+background-color: transparent; 
+border: none;
+}
+
+/* Rectangle 21 */
+.bg{
+position: absolute;
+top: 12.65%;
+left: 10%;
+width: 80%;  
+height: 80%;
+
+background: rgba(222, 242, 241, 0.9);
+box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 40px;
+}
+
+.reviews-bg{
+  /* Rectangle 22 */
   position: absolute;
-  left: 136px;
-  top: 230px;
-`;
-export const StyledSubmitButton = styled(SubmitButton)`
+  left: 63.26%;
+  right: 3%;
+  top: 5%;
+  bottom: 42%;
+
+  background: #FEFFFF;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 40px;
+}
+
+.submit-review-bg{
+  /* Rectangle 23 */
   position: absolute;
-  right: 177px;
-  top: 330px;
-`;
-export const StyledBrokenButton = styled(BrokenButton)`
-  position: absolute;
-  right: 179px;
-  top: 429px;
-`;
-export const StyledRateButton = styled(RateButton)`
-  position: absolute;
-  right: 177.16px;
-  top: 230px;
-`;
-export const StyledBackButton = styled(BackButton)`
-  position: absolute;
-  left: 74px;
-  top: 156px;
-`;
-export const StyledTaskbar = styled(Taskbar)`
-  position: absolute;
-  left: 0;
-  top: 0;
-`;
