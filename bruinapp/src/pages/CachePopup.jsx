@@ -5,6 +5,10 @@ import { getCountFromServer } from 'firebase/firestore';
 import ReviewItem from "./ReviewItem"
 import { State, useState } from "react";
 
+/*for star rater*/
+import Rater from 'react-rater'
+import 'react-rater/lib/react-rater.css'
+
 import "./cache.css";
 
 const db = getFirestore(app);
@@ -13,6 +17,7 @@ function CachePopup(props) {
 	const [reviews, setReviews] = useState([])
 	const [loaded, setLoaded] = useState(false);
 	const [count, setCount] = useState(0);
+	const [rate, setRate] = useState(0);
 	async function get_reviews(id) {
 		
 		//setLoaded(true);
@@ -25,7 +30,7 @@ function CachePopup(props) {
 		  // doc.data() is never undefined for query doc snapshots
 		  //console.log(doc.id, " => ", doc.data().name);
 		  console.log(doc.id);
-		  res.push({id: doc.id, review: doc.data().review, owner: doc.data().review, rating: doc.data().rating});
+		  res.push({id: doc.id, review: doc.data().review, owner: doc.data().owner, rating: doc.data().rating});
 		});
 		setReviews(res);
 		setCount(countData.data().count);
@@ -37,7 +42,7 @@ function CachePopup(props) {
 	   
 		await addDoc(collection(db, "reviews"), {
 		  owner: document.getElementById("rev_owner").value,
-		  rating: document.getElementById("rating").value,
+		  rating: rate,
 		  review: document.getElementById("review").value,
 		  cache: props.cache.id,
 		});
@@ -66,18 +71,20 @@ function CachePopup(props) {
 		
 		<div className = "reviews-bg">
 			<h2 className="review-title">Reviews:</h2>
-			<ul>
-			{reviews.length > 0 && reviews.map(reviews => (
-				<ReviewItem res={reviews}/>
-			))}
-			</ul>
+			<div className="scroll">
+				<ul>
+				{reviews.length > 0 && reviews.map(reviews => (
+					<ReviewItem res={reviews}/>
+				))}
+				</ul>
+			</div>
 		</div>
 		
 		</div>
 			<div className= "submit-review-bg">
 				<form>
-				<p>Rating 0-5:   <input type="number" id="rating"></input>
-			    Owner:   <input className= "in-line-tb" type="text" id="rev_owner"></input>
+				<Rater rating={0} total={5} OnRate={({rating}) => setRate}/>
+				<p>Owner:   <input className= "in-line-tb" type="text" id="rev_owner"></input>
 				Review (optional):<input type="text" id="review"></input></p>
 				</form>
 				<button onClick={send_review}>SEND</button>
