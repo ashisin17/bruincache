@@ -10,7 +10,7 @@ const Header = () => {
     color: 'white',
     textAlign: 'center',
     width: '100%',
-    height: '50px',
+    height: '5vh',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
