@@ -56,10 +56,12 @@ function CachePopup(props) {
 			</svg>
 		</button>
 
-		<p> {props.cache.data().location.lat.toString()}, {props.cache.data().location.lng.toString()} </p>
+		
 		<h1>{ props.cache.data().name }</h1>
+		
+		<p> {props.cache.data().location.lat.toString()}, {props.cache.data().location.lng.toString()} </p>
 		<p>{ props.cache.data().owner }</p>
-		<p>{ props.cache.id }</p>
+		<p>{ props.cache.data().desc }</p>
 		<p>{ count } SOLVES </p>
 		
 		<div className = "reviews-bg">
