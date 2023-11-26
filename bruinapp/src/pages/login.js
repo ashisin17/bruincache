@@ -11,20 +11,16 @@ const Login = () => {
 
     overlayContent.innerHTML = `
         <h2 class ="Welcome" >Welcome to</h2>
-        <p class="BruinCache"> BruinCache </p>
+        <p class="BruinCache"> Bruin Cache </p>
         <p class="Description"> A new way to explore the UCLA Campus </p>
-
-
     `;
-    // Disable scroll when the overlay is displayed
-    
-  
 
     overlayContainer.appendChild(overlayContent);
     document.body.appendChild(overlayContainer);
 
     overlayContainer.style.display = 'flex';
     document.body.style.overflow = 'hidden';
+
 
     return () => {
       document.body.style.overflow = 'auto';
