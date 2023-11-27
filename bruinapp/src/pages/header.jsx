@@ -13,16 +13,26 @@ const Header = () => {
     height: '5vh',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-between', // Add this to align items at the ends of the container
     lineHeight: '1.5', // Increase line height to ensure text visibility
   };
-  if(location.pathname !== '/login'){
-  return (
-    <div style={headerStyle}>
-      <h1>UCLA Bruin App</h1>
-    </div>
-  );
-}
+
+  const buttonStyle = {
+    backgroundColor: 'white',
+    color: 'black',
+    padding: '8px 16px',
+    borderRadius: '5px',
+    cursor: 'pointer',
+  };
+
+  if (location.pathname !== '/login') {
+    return (
+      <div style={headerStyle}>
+        <h1>UCLA Bruin App</h1>
+        <button style={buttonStyle}>Your Button</button>
+      </div>
+    );
+  }
 };
 
 export default Header;
