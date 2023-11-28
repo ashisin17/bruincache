@@ -14,6 +14,7 @@ function GMapComponent({
 
   center,
   zoom,
+  user,
 }: {
   center: google.maps.LatLngLiteral;
   zoom: number;
@@ -35,7 +36,7 @@ function GMapComponent({
 		for (let i = 0; i < caches.length; i++) {
 			if(popup[i] == true) {
 				
-				rows.push(<CachePopup cache = {caches[i]} closePopup={closePopup}/>);
+				rows.push(<CachePopup user={user} cache = {caches[i]} closePopup={closePopup}/>);
 				//alert(i);
 				//alert(locations.length);
 				//alert(locations[i].lat);
@@ -49,6 +50,7 @@ function GMapComponent({
 	const [results, setResults] = useState([])
   useEffect(() => {
     // Display the map
+	//console.log(user);
     if (ref.current) {
       const map = new window.google.maps.Map(ref.current, {
         center: center,
