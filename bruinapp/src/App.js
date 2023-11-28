@@ -15,7 +15,7 @@ import {signOut } from 'firebase/auth';
 
 import "./App.css";
 
-export default function App () {
+export default function App (props) {
 	const [user, setUser] = useState(null);
 	const glogin = async () => {
 			const response = await signInWithGooglePopup();
@@ -28,25 +28,23 @@ export default function App () {
 	useEffect(() => {
 		auth.onAuthStateChanged(user => {
 		  setUser(user);
-		  			console.log(user)
 
 		})
 	}, [])
 	if(user) {
 		return (
 			<>
-			<button style={{width:50, height:50}} onClick={gunlogin}>LOGOUT</button>
 			<Router>
 
-			<Header />
+			<Header user={user}/>
 
 			<Routes>
-				<Route exact path="/" Component={Map} />
+				<Route exact path="/" Component={props => <Map user={user}/>} />
 				<Route path="/profile" Component={Profile} /> 
 				<Route path="/home" Component={Home} />
 
 				<Route path="/login" Component={Login} />
-				<Route path="/create" element={<Create />} />
+				<Route exact path="/create" Component={props => <Create user={user}/>} />
 			</Routes>
 			</Router>
 			
@@ -57,8 +55,6 @@ export default function App () {
 	    return (
 			<>
 			<button style={{width:50, height:50}} onClick={glogin}>LOGIN</button>
-			
-			<Home user={user} />
 			</>
 			
 		)
