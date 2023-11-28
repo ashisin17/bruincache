@@ -5,6 +5,10 @@ import { getCountFromServer } from 'firebase/firestore';
 import ReviewItem from "./ReviewItem"
 import { State, useState } from "react";
 
+/*for star rater*/
+import Rater from 'react-rater'
+import 'react-rater/lib/react-rater.css'
+
 import "./cache.css";
 
 const db = getFirestore(app);
@@ -13,13 +17,14 @@ function CachePopup(props) {
 	const [reviews, setReviews] = useState([])
 	const [loaded, setLoaded] = useState(false);
 	const [count, setCount] = useState(0);
+	const [rate, setRate] = useState(0);
 	const [reviewed, setReviewed] = useState(false);
 	function review_form() {
 		if(!reviewed) {
 			return(
 				<>
 				<form>
-				<p>Rating 0-5:   <input type="number" id="rating"></input>
+				<Rater rating={0} total={5} OnRate={({rating}) => setRate}/>
 				Review (optional):<input type="text" id="review"></input></p>
 				</form>
 				<button onClick={send_review}>SEND</button>
@@ -58,8 +63,9 @@ function CachePopup(props) {
 	   //I don't know how to do proper frontend, this is for backend testing only
 	   
 		await addDoc(collection(db, "reviews"), {
+		  owner: document.getElementById("rev_owner").value,
+		  rating: rate,
 		  owner: props.user.email,
-		  rating: document.getElementById("rating").value,
 		  review: document.getElementById("review").value,
 		  cache: props.cache.id,
 		});
@@ -90,15 +96,18 @@ function CachePopup(props) {
 		
 		<div className = "reviews-bg">
 			<h2 className="review-title">Reviews:</h2>
-			<ul>
-			{reviews.length > 0 && reviews.map(reviews => (
-				<ReviewItem res={reviews}/>
-			))}
-			</ul>
+			<div className="scroll">
+				<ul>
+				{reviews.length > 0 && reviews.map(reviews => (
+					<ReviewItem res={reviews}/>
+				))}
+				</ul>
+			</div>
 		</div>
 		
 		</div>
 			<div className= "submit-review-bg">
+
 			{review_form()} 
 				
 			</div>
