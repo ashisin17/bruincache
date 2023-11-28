@@ -1,19 +1,13 @@
-import './profile.css';
+import React from "react";
+import "./profile.css";
+//import header that chana will work on
 
-export default function Profile() {
-    /* TODO: clean up profile.css to see what I can get rid of, figma is not super accurate...
-        Background
-        Task Bar
-
-        Profile Pic
-        Profile Text
-
-        Look at Caches Button
-    */
-    return(
+const Profile = () => {
+    return (
+        //use header
         <>
+            <div classname="header">CHECK</div>
             <div class="background-rectangle"></div>
-            <div class="task-bar"></div>
 
             <div>
                 <div class="ellipse-3"></div>
@@ -50,5 +44,8 @@ export default function Profile() {
             <div class="caches-info-text">Go out and make some caches!</div>
             
         </>
-    )
-}
+    );
+};
+
+export default Profile;
+
