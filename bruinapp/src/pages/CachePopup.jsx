@@ -13,6 +13,25 @@ function CachePopup(props) {
 	const [reviews, setReviews] = useState([])
 	const [loaded, setLoaded] = useState(false);
 	const [count, setCount] = useState(0);
+	const [reviewed, setReviewed] = useState(false);
+	function review_form() {
+		if(!reviewed) {
+			return(
+				<>
+				<form>
+				<p>Rating 0-5:   <input type="number" id="rating"></input>
+				Review (optional):<input type="text" id="review"></input></p>
+				</form>
+				<button onClick={send_review}>SEND</button>
+				</>
+			)
+		}
+		else {
+			return (<>
+				<p> You've already reviewed this cache! </p>
+			</>)
+		}
+	}
 	async function get_reviews(id) {
 		
 		//setLoaded(true);
@@ -20,11 +39,14 @@ function CachePopup(props) {
 		const q = query(collection(db, "reviews"), where("cache", "==", id));
 		const querySnapshot = await getDocs(q);
 		const countData = await getCountFromServer(q);
-		console.log("MOVING MOBING");
+		//console.log("MOVING MOBING");
 		querySnapshot.forEach((doc) => {
 		  // doc.data() is never undefined for query doc snapshots
 		  //console.log(doc.id, " => ", doc.data().name);
-		  console.log(doc.id);
+		  //console.log(doc.id);
+		  if(doc.data().owner === props.user.email) {
+			  setReviewed(true);
+		  }
 		  res.push({id: doc.id, review: doc.data().review, owner: doc.data().review, rating: doc.data().rating});
 		});
 		setReviews(res);
@@ -77,11 +99,8 @@ function CachePopup(props) {
 		
 		</div>
 			<div className= "submit-review-bg">
-				<form>
-				<p>Rating 0-5:   <input type="number" id="rating"></input>
-				Review (optional):<input type="text" id="review"></input></p>
-				</form>
-				<button onClick={send_review}>SEND</button>
+			{review_form()} 
+				
 			</div>
 		</div>
 	</div>
