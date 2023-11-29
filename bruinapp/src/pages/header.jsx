@@ -1,9 +1,14 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import {auth} from '../firebase'
+import {signOut } from 'firebase/auth';
 
-const Header = () => {
+
+const Header = ( {user} ) => {
   const location = useLocation();
-
+  const gunlogin = async () => {
+			signOut(auth)
+		}
   const headerStyle = {
     backgroundColor: 'black',
     padding: '10px',
@@ -29,6 +34,8 @@ const Header = () => {
     return (
       <div style={headerStyle}>
         <h1>UCLA Bruin App</h1>
+		<p>{user.email}</p>
+		<button style={buttonStyle} onClick={gunlogin}>Logout</button>
         <button style={buttonStyle}>Your Button</button>
       </div>
     );
