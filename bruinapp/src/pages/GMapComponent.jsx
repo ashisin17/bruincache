@@ -130,7 +130,7 @@ function GMapComponent({
 		
   }
   return (<>
-  <div style={{ height: '100vh', width: '100vw' }} ref={ref} id="map" >
+  <div style={{ height: '94vh', width: '100vw' }} ref={ref} id="map" >
   </div>
   	{
 		listPopups()
