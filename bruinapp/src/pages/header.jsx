@@ -3,10 +3,16 @@ import { Link, useLocation } from 'react-router-dom';
 import IconSVG from './pictures/IconSVG.svg';
 import MapSVG from './pictures/MapSVG.svg';
 import BruinPNG from './pictures/BruinCacheLogo.png';
+import {auth} from '../firebase'
+import {signOut } from 'firebase/auth';
 
-const Header = () => {
+
+
+const Header = ( {user} ) => {
   const location = useLocation();
-
+  const gunlogin = async () => {
+			signOut(auth)
+		}
   const headerStyle = {
     backgroundColor: '#3AAFA9',
     padding: '10px',
@@ -54,6 +60,7 @@ const Header = () => {
   if (location.pathname !== '/login') {
     return (
       <div style={headerStyle}>
+
           <img src={BruinPNG} alt="BruinCache" style={{ height: '50px' }} />
         <div style={buttonContainerStyle}>
           <Link to="/profile">
@@ -64,6 +71,12 @@ const Header = () => {
             <button style={MapButtonStyle} />
           </Link>
         </div>
+
+//         <h1>UCLA Bruin App</h1>
+// 		<p>{user.email}</p>
+// 		<button style={buttonStyle} onClick={gunlogin}>Logout</button>
+//         <button style={buttonStyle}>Your Button</button>
+
       </div>
     );
   }

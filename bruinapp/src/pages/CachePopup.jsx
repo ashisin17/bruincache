@@ -5,6 +5,10 @@ import { getCountFromServer } from 'firebase/firestore';
 import ReviewItem from "./ReviewItem"
 import { State, useState } from "react";
 
+/*for star rater*/
+import Rater from 'react-rater'
+import 'react-rater/lib/react-rater.css'
+
 import "./cache.css";
 
 const db = getFirestore(app);
@@ -13,6 +17,26 @@ function CachePopup(props) {
 	const [reviews, setReviews] = useState([])
 	const [loaded, setLoaded] = useState(false);
 	const [count, setCount] = useState(0);
+	const [rate, setRate] = useState(0);
+	const [reviewed, setReviewed] = useState(false);
+	function review_form() {
+		if(!reviewed) {
+			return(
+				<>
+				<form>
+				<Rater rating={0} total={5} OnRate={({rating}) => setRate}/>
+				Review (optional):<input type="text" id="review"></input></p>
+				</form>
+				<button onClick={send_review}>SEND</button>
+				</>
+			)
+		}
+		else {
+			return (<>
+				<p> You've already reviewed this cache! </p>
+			</>)
+		}
+	}
 	async function get_reviews(id) {
 		
 		//setLoaded(true);
@@ -20,11 +44,14 @@ function CachePopup(props) {
 		const q = query(collection(db, "reviews"), where("cache", "==", id));
 		const querySnapshot = await getDocs(q);
 		const countData = await getCountFromServer(q);
-		console.log("MOVING MOBING");
+		//console.log("MOVING MOBING");
 		querySnapshot.forEach((doc) => {
 		  // doc.data() is never undefined for query doc snapshots
 		  //console.log(doc.id, " => ", doc.data().name);
-		  console.log(doc.id);
+		  //console.log(doc.id);
+		  if(doc.data().owner === props.user.email) {
+			  setReviewed(true);
+		  }
 		  res.push({id: doc.id, review: doc.data().review, owner: doc.data().review, rating: doc.data().rating});
 		});
 		setReviews(res);
@@ -37,7 +64,8 @@ function CachePopup(props) {
 	   
 		await addDoc(collection(db, "reviews"), {
 		  owner: document.getElementById("rev_owner").value,
-		  rating: document.getElementById("rating").value,
+		  rating: rate,
+		  owner: props.user.email,
 		  review: document.getElementById("review").value,
 		  cache: props.cache.id,
 		});
@@ -47,6 +75,7 @@ function CachePopup(props) {
 		get_reviews(props.cache.id);
 	}
 	if(loaded) {return(<>
+	
 	<div className = "bg">	
 		<div style={{display:'flex'}}>
 		<div style={{width:'50%'}}>
@@ -61,26 +90,26 @@ function CachePopup(props) {
 		
 		<p> {props.cache.data().location.lat.toString()}, {props.cache.data().location.lng.toString()} </p>
 		<p>{ props.cache.data().owner }</p>
+		
 		<p>{ props.cache.data().desc }</p>
 		<p>{ count } SOLVES </p>
 		
 		<div className = "reviews-bg">
 			<h2 className="review-title">Reviews:</h2>
-			<ul>
-			{reviews.length > 0 && reviews.map(reviews => (
-				<ReviewItem res={reviews}/>
-			))}
-			</ul>
+			<div className="scroll">
+				<ul>
+				{reviews.length > 0 && reviews.map(reviews => (
+					<ReviewItem res={reviews}/>
+				))}
+				</ul>
+			</div>
 		</div>
 		
 		</div>
 			<div className= "submit-review-bg">
-				<form>
-				<p>Rating 0-5:   <input type="number" id="rating"></input>
-			    Owner:   <input className= "in-line-tb" type="text" id="rev_owner"></input>
-				Review (optional):<input type="text" id="review"></input></p>
-				</form>
-				<button onClick={send_review}>SEND</button>
+
+			{review_form()} 
+				
 			</div>
 		</div>
 	</div>
