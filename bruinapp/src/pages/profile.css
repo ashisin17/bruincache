@@ -20,17 +20,34 @@
 /* END OF PROFILE PIC */
 
 /* START OF PROFILE TEXT */
-.profile-text{
+.name-text{
     position: absolute;
     width: 445px;
     height: 71px;
     left: 341px;
-    top: 215px;
+    top: 190px;
 
     font-family: "Istok Web"; /* THIS FONT ISN'T COMPATIBLE WITH MY BROWSER */
     font-style: normal;
     font-weight: 400;
     font-size: 45px;
+    line-height: 24px;
+    /* or 53% */
+    letter-spacing: -0.006em;
+
+    color: #000000;
+}
+.email-text{
+    position: absolute;
+    width: 445px;
+    height: 71px;
+    left: 341px;
+    top: 240px;
+
+    font-family: "Istok Web"; /* THIS FONT ISN'T COMPATIBLE WITH MY BROWSER */
+    font-style: normal;
+    font-weight: 400;
+    font-size: 35px;
     line-height: 24px;
     /* or 53% */
     letter-spacing: -0.006em;

@@ -3,13 +3,41 @@ import "./profile.css";
 // import header that chana will work on
 // if I have time, make it so we can't shrink screen smaller than the name text
 
-const Profile = () => {
+import ListResultItem from "./ListResultItem"
+import { useRef, useEffect } from "react";
+import { State, useState } from "react";
+import { getFirestore, collection, getDocs, addDoc, doc, query, where } from 'firebase/firestore/lite';
+import app from "../firebase"
+import CachePopup from "./CachePopup"
+
+
+const db = getFirestore(app);
+
+const caches = [];
+
+function Profile ( props ) {
+
+    const [results, setResults] = useState([])
+    async function search_owner(name) {
+		const res = [];
+		const q = query(collection(db, "caches"), where("owner", "==", name));
+		const querySnapshot = await getDocs(q);
+		console.log(querySnapshot); //
+		querySnapshot.forEach((doc) => {
+		  // doc.data() is never undefined for query doc snapshots
+		  console.log(doc.id, " => ", doc.data().name); //
+		  res.push({id: doc.id, name: doc.data().name});
+		});
+		setResults(res);
+        return 1;
+    }
     return (
-        //use header
         <>
-            
+            <button onClick={() => search_owner(props.user.displayName)}>SEND</button>
+
             <div class="background-rectangle"></div>
-            <div class="header">CHECK</div>
+            <div class="header"></div>
+
 
             <div class="profile-pic">
                 <svg width="200" height="200" viewBox="0 0 85 85" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -17,8 +45,12 @@ const Profile = () => {
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M79 42.5C79 62.0607 62.0607 79.5 42.5 79.5C22.9394 79.5 6 62.0607 6 42.5C6 22.9394 22.9394 6 42.5 6C62.0607 6 79 22.9394 79 42.5ZM59.5532 69.4344C54.4549 72.6708 48.5388 74.3848 42.5 74.375C36.3165 74.385 30.2649 72.5877 25.0892 69.2042C24.6642 68.673 24.2339 68.124 23.7965 67.5573C23.291 66.8932 23.0184 66.081 23.0209 65.2464C23.0209 63.3392 24.3915 61.7401 26.2243 61.4727C38.3457 59.7019 46.6916 59.8542 58.8289 61.5347C59.7079 61.6621 60.5111 62.1033 61.0901 62.7768C61.6692 63.4502 61.985 64.3104 61.9792 65.1986C61.9792 66.0486 61.687 66.8738 61.1593 67.5184C60.6157 68.1807 60.0791 68.8199 59.5532 69.4344ZM65.4943 64.5752C65.211 61.2602 63.3805 57.4675 60 57C47.5758 55.2805 37.5824 55.1743 25.0892 57C21.6892 57.4958 19.8068 61.2549 19.5093 64.5788C13.799 58.6484 10.6138 50.7328 10.625 42.5C10.625 24.8962 24.8962 10.625 42.5 10.625C60.1039 10.625 74.375 24.8962 74.375 42.5C74.3863 50.731 71.2025 58.6452 65.4943 64.5752Z" fill="#3AAFA9"/>
                 </svg>
             </div>
+
+            <div>
+                <div class="name-text">{props.user.displayName}</div>
+                <div class="email-text">{props.user.email}</div>
+            </div>
             
-            <div class="profile-text">Insert text here</div>
 
 
             <div>
