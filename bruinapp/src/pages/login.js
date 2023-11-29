@@ -1,40 +1,17 @@
 import React, { useEffect } from 'react';
 import { getAuth, signInWithPopup, signOut, GoogleAuthProvider } from "firebase/auth";
 import './login.css';
-import Google from './Google.js'
+import app from "../firebase"
+import {signInWithGooglePopup} from '../firebase'
+
+
 
 const Login = () => {
-  const handleGoogleSignin = async() => {
-    // google authentication stuff
-  const auth = getAuth();
-  signOut(auth).then(() => {
-    // Sign-out successful.
-  }).catch((error) => {
-    // An error happened.
-  });  
-  const provider = new GoogleAuthProvider();
-  signInWithPopup(auth, provider)
-    .then((result) => {
-      // This gives you a Google Access Token. You can use it to access the Google API.
-      const credential = GoogleAuthProvider.credentialFromResult(result);
-      const token = credential.accessToken;
-      // The signed-in user info.
-      const user = result.user;
-      // IdP data available using getAdditionalUserInfo(result)
-      // ...
-    }).catch((error) => {
-      // Handle Errors here.
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      // The email of the user's account used.
-      const email = error.customData.email;
-      // The AuthCredential type that was used.
-      const credential = GoogleAuthProvider.credentialFromError(error);
-      // ...
-    });
-  }
-
-  useEffect(() => {
+	const glogin = async () => {
+        const response = await signInWithGooglePopup();
+        console.log(response);
+    }
+  /*useEffect(() => {
     const overlayContainer = document.createElement('div');
     overlayContainer.classList.add('overlay-container');
 
@@ -42,15 +19,11 @@ const Login = () => {
     overlayContent.classList.add('overlay-content');
 
     overlayContent.innerHTML = `
+		
         <h2 class ="Welcome" >Welcome to</h2>
-        <p class="BruinCache"> BruinCache </p>
+        <p class="BruinCache"> Bruin Cache </p>
         <p class="Description"> A new way to explore the UCLA Campus </p>
-
-
-    `;
-    // Disable scroll when the overlay is displayed
-    
-  
+		`;
 
     overlayContainer.appendChild(overlayContent);
     document.body.appendChild(overlayContainer);
@@ -58,13 +31,18 @@ const Login = () => {
     overlayContainer.style.display = 'flex';
     document.body.style.overflow = 'hidden';
 
+
     return () => {
       document.body.style.overflow = 'auto';
       document.body.removeChild(overlayContainer);
       <Google onClick={signInWithPopup}/>
     };
-  }, []);
-
+  }, []);*/
+	return (
+		<button style={{width:50, height:50}} onClick={glogin}></button>
+      //document.body.style.overflow = 'auto';
+      //document.body.removeChild(overlayContainer);
+    );
 };
 
 export default Login;

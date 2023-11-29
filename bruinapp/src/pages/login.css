@@ -19,6 +19,12 @@
   height: 30%;
 }
 
+@media (max-width: 600px) {
+  .overlay-content {
+    font-size: 14px; /* Adjust the font size for smaller screens */
+  }
+}
+
 .Welcome{
   font-family: Roboto;
   font-weight: semi-bold;
