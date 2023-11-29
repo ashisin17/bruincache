@@ -72,10 +72,7 @@ const Header = ( {user} ) => {
           </Link>
         </div>
 
-//         <h1>UCLA Bruin App</h1>
-// 		<p>{user.email}</p>
-// 		<button style={buttonStyle} onClick={gunlogin}>Logout</button>
-//         <button style={buttonStyle}>Your Button</button>
+ 		<button onClick={gunlogin}>Logout</button>
 
       </div>
     );
