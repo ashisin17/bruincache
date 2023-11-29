@@ -54,7 +54,7 @@ function CachePopup(props) {
 		  if(doc.data().owner === props.user.email) {
 			  setReviewed(true);
 		  }
-		  res.push({id: doc.id, review: doc.data().review, owner: doc.data().review, rating: doc.data().rating});
+		  res.push({id: doc.id, review: doc.data().review, owner: doc.data().owner, rating: doc.data().rating});
 		});
 		setReviews(res);
 		setCount(countData.data().count);
@@ -66,12 +66,12 @@ function CachePopup(props) {
 	   //I don't know how to do proper frontend, this is for backend testing only
 	   
 		await addDoc(collection(db, "reviews"), {
-		  owner: document.getElementById("rev_owner").value,
 		  rating: rate,
 		  owner: props.user.email,
 		  review: document.getElementById("review").value,
 		  cache: props.cache.id,
 		});
+		console.log(props.user.email);
 		setLoaded(false);
 	}
 	if(!loaded) {
