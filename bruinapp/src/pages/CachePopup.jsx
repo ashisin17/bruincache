@@ -25,7 +25,7 @@ function CachePopup(props) {
 				<>
 				<form>
 				<Rater rating={0} total={5} OnRate={({rating}) => setRate}/>
-				Review (optional):<input type="text" id="review"></input></p>
+				<p>Review (optional):</p><input type="text" id="review"></input>
 				</form>
 				<button onClick={send_review}>SEND</button>
 				</>
