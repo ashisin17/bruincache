@@ -36,6 +36,7 @@ function CachePopup(props) {
 		setCount(countData.data().count);
 		setLoaded(true);
     }
+
 	async function send_review () {
 	   //don't use get element and input forms like this, do it through react
 	   //I don't know how to do proper frontend, this is for backend testing only
@@ -82,12 +83,15 @@ function CachePopup(props) {
 		
 		</div>
 			<div className= "submit-review-bg">
-				<form>
-				<Rater rating={0} total={5} OnRate={({rating}) => setRate}/>
-				<p>Owner:   <input className= "in-line-tb" type="text" id="rev_owner"></input>
-				Review (optional):<input type="text" id="review"></input></p>
-				</form>
-				<button onClick={send_review}>SEND</button>
+				<div className="rev-input">
+					<form>
+					<p>
+					<Rater total={5} onRate={ ({rating}) => setRate(rating)}/> 
+					<br/>Owner:   <input className= "in-line-tb" type="text" id="rev_owner"></input>
+					<br/>Review (optional):<input type="text" id="review"></input></p>
+					</form>
+					<button onClick={send_review}>SEND</button>
+				</div>
 			</div>
 		</div>
 	</div>
