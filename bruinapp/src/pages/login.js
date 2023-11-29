@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { getAuth, signInWithPopup, signOut, GoogleAuthProvider } from "firebase/auth";
 import './login.css';
 import app from "../firebase"
 import {signInWithGooglePopup} from '../firebase'
@@ -34,6 +35,7 @@ const Login = () => {
     return () => {
       document.body.style.overflow = 'auto';
       document.body.removeChild(overlayContainer);
+      <Google onClick={signInWithPopup}/>
     };
   }, []);*/
 	return (
@@ -44,3 +46,76 @@ const Login = () => {
 };
 
 export default Login;
+
+/** PAST authentication for reference :)
+ *   const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [userData, setUserData] = useState({})
+  const navigate = useNavigate(); // Initialize navigate
+
+    useEffect(() => {
+      const unsubscribe = onAuthStateChanged(auth, (result) => {
+        if (result) {
+
+          const {displayName, email} = result
+          setUserData({ displayName, email })
+          setIsLoggedIn(true)
+        } else {
+          setIsLoggedIn(false)
+        }
+
+      })
+
+      return () => unsubscribe();
+    },[])
+
+    const Logout = () => {
+      signOut(auth).then(() => {
+        // Sign-out successful.
+        setUserData({})
+        setIsLoggedIn(false)
+      }).catch((error) => {
+        // An error happened.
+        console.log({ error });
+      });
+    }  
+
+
+  const handleSignInWithGoogle = () => {
+    const provider = new GoogleAuthProvider();
+    const auth = getAuth();
+  
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        // signed-in user info.
+        const user = result.user;
+        const email = result.user.email; 
+        const name = result.user.name;
+
+        //FOR TEST PURPOSES
+        localStorage.setItem("name", name)
+        localStorage.setItem("email", email)
+  
+        // connect to users collection.
+        const db = getFirestore();
+        const userRef = doc(db, "users", user.uid); // 'users' is the Firestore collection
+  
+        const userData = {
+          email: user.email, // Update the email field
+          year: user.year, // Update the year 
+        };
+  
+        setDoc(userRef, userData, { merge: true })
+          .then(() => {
+            navigate("/account");
+          })
+          .catch((error) => {
+            console.error("Error writing user data to Firestore: ", error);
+          });
+  
+      })
+      .catch((error) => {
+        console.error("Google sign-in error: ", error);
+      });
+  };
+
+*/

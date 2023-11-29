@@ -49,3 +49,8 @@
   margin-top: -60px;
 }
 
+.sign-in{
+  width: 564px;
+  height: 75px;
+  flex-shrink: 0;
+}
