@@ -40,7 +40,7 @@ export default function App (props) {
 
 			<Routes>
 				<Route exact path="/" Component={props => <Map user={user}/>} />
-				<Route path="/profile" Component={Profile} /> 
+				<Route path="/profile" Component={props => <Profile user={user}/>} /> 
 				<Route path="/home" Component={Home} />
 
 				<Route path="/login" Component={Login} />

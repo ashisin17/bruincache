@@ -21,7 +21,7 @@ const Header = ( {user} ) => {
     width: '100%',
     maxWidth: '100%',
     boxSizing: 'border-box',
-    height: '6vh',
+    height: '10vh',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
