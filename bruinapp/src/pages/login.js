@@ -33,7 +33,6 @@ const Login = () => {
     const loginButton = document.createElement('button');
     loginButton.classList.add('login-button');
 
-    // Create an image element for the SVG
     const svgImage = new Image();
     svgImage.src = LoginIcon;
     svgImage.alt = 'Login';
@@ -54,7 +53,7 @@ const Login = () => {
     return () => {
       document.body.style.overflow = 'auto';
       document.body.removeChild(overlayContainer);
-      <Google onClick={signInWithPopup}/>
+      // <Google onClick={signInWithPopup}/>
     };
   }, []);
 
