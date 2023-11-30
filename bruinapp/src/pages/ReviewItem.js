@@ -3,7 +3,9 @@ function ReviewItem(props) {
 
     return (
         <li key={res.owner}>
-            <p>{res.review} SCORE: {res.rating}/5</p>
+            <p>{res.owner} | {res.rating}/5 <br/>
+            {res.review} </p>
+            <hr/>
         </li>
     )
 } export default ReviewItem;
