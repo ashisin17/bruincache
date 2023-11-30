@@ -14,7 +14,6 @@ import { useState, useEffect } from 'react';
 import {signOut } from 'firebase/auth';
 import "./App.css";
 
-// ... (your other imports)
 
 export default function App(props) {
   const [user, setUser] = useState(null);
@@ -51,4 +50,50 @@ export default function App(props) {
       </Router>
     </div>
   );
+
+export default function App (props) {
+	const [user, setUser] = useState(null);
+	const glogin = async () => {
+			const response = await signInWithGooglePopup();
+			
+			console.log(user)
+		}
+	const gunlogin = async () => {
+			signOut(auth)
+		}
+	useEffect(() => {
+		auth.onAuthStateChanged(user => {
+		  setUser(user);
+
+		})
+	}, [])
+	if(user) {
+		return (
+			<>
+			<Router>
+
+			<Header user={user}/>
+
+			<Routes>
+				<Route exact path="/" Component={props => <Map user={user}/>} />
+				<Route path="/profile" Component={props => <Profile user={user}/>} /> 
+				<Route path="/home" Component={Home} />
+
+				<Route path="/login" Component={Login} />
+				<Route exact path="/create" Component={props => <Create user={user}/>} />
+			</Routes>
+			</Router>
+			
+			</>
+		)
+	}
+	else {
+	    return (
+			<>
+			<button style={{width:50, height:50}} onClick={glogin}>LOGIN</button>
+			</>
+			
+		)
+	}
+
 }

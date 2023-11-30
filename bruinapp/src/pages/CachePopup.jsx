@@ -24,8 +24,10 @@ function CachePopup(props) {
 			return(
 				<>
 				<form>
-				<Rater rating={0} total={5} OnRate={({rating}) => setRate}/>
-				<p>Review (optional):</p><input type="text" id="review"></input>
+					<p>
+					<Rater total={5} onRate={ ({rating}) => setRate(rating)}/> 
+					<br/>Review (optional):<input type="text" id="review"></input>
+				  </p>
 				</form>
 				<button onClick={send_review}>SEND</button>
 				</>
@@ -52,23 +54,24 @@ function CachePopup(props) {
 		  if(doc.data().owner === props.user.email) {
 			  setReviewed(true);
 		  }
-		  res.push({id: doc.id, review: doc.data().review, owner: doc.data().review, rating: doc.data().rating});
+		  res.push({id: doc.id, review: doc.data().review, owner: doc.data().owner, rating: doc.data().rating});
 		});
 		setReviews(res);
 		setCount(countData.data().count);
 		setLoaded(true);
     }
+
 	async function send_review () {
 	   //don't use get element and input forms like this, do it through react
 	   //I don't know how to do proper frontend, this is for backend testing only
 	   
 		await addDoc(collection(db, "reviews"), {
-		  owner: document.getElementById("rev_owner").value,
 		  rating: rate,
 		  owner: props.user.email,
 		  review: document.getElementById("review").value,
 		  cache: props.cache.id,
 		});
+		console.log(props.user.email);
 		setLoaded(false);
 	}
 	if(!loaded) {
@@ -107,9 +110,7 @@ function CachePopup(props) {
 		
 		</div>
 			<div className= "submit-review-bg">
-
-			{review_form()} 
-				
+				{review_form()} 
 			</div>
 		</div>
 	</div>
