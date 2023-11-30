@@ -26,8 +26,7 @@ function CachePopup(props) {
 				<form>
 					<p>
 					<Rater total={5} onRate={ ({rating}) => setRate(rating)}/> 
-					<br/>Review (optional):<input type="text" id="review"></input>
-				  </p>
+					<br/>Review (optional):<input type="text" id="review"></input></p>
 				</form>
 				<button onClick={send_review}>SEND</button>
 				</>
@@ -54,7 +53,7 @@ function CachePopup(props) {
 		  if(doc.data().owner === props.user.email) {
 			  setReviewed(true);
 		  }
-		  res.push({id: doc.id, review: doc.data().review, owner: doc.data().review, rating: doc.data().rating});
+		  res.push({id: doc.id, review: doc.data().review, owner: doc.data().owner, rating: doc.data().rating});
 		});
 		setReviews(res);
 		setCount(countData.data().count);
@@ -88,17 +87,18 @@ function CachePopup(props) {
 			</svg>
 		</button>
 
-		
-		<h1>{ props.cache.data().name }</h1>
-		
-		<p> {props.cache.data().location.lat.toString()}, {props.cache.data().location.lng.toString()} </p>
-		<p>{ props.cache.data().owner }</p>
-		
-		<p>{ props.cache.data().desc }</p>
-		<p>{ count } SOLVES </p>
+		<div className = "info-bg">
+			<h1>{ props.cache.data().name }</h1>
+			<p className = "subheading"> {props.cache.data().location.lat.toString()}, {props.cache.data().location.lng.toString()}   |   { props.cache.data().owner }</p>
+			<div className = "des-bg">
+				<p>{ props.cache.data().desc }</p>
+			</div>
+			
+			<p>{ count } SOLVES </p>
+		</div>
 		
 		<div className = "reviews-bg">
-			<h2 className="review-title">Reviews:</h2>
+			<p className="review-title">Reviews:</p>
 			<div className="scroll">
 				<ul>
 				{reviews.length > 0 && reviews.map(reviews => (
