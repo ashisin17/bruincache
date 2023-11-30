@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import IconSVG from './pictures/IconSVG.svg';
-import MapSVG from './pictures/MapSVG.svg';
-import BruinPNG from './pictures/BruinCacheLogo.png';
 import {auth} from '../firebase'
 import {signOut } from 'firebase/auth';
+import MapSVG from './pictures/MapSVG.svg';
+import BruinPNG from './pictures/BruinCacheLogo.png';
+import LogoutSVG from './pictures/LogoutSVG.svg';
 
 
 
@@ -31,8 +32,9 @@ const Header = ( {user} ) => {
   const buttonContainerStyle = {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'flex-end', 
-    width: '100%', 
+    justifyContent: 'flex-end',
+    width: '100%',
+    marginLeft: '10px', 
   };
 
   const IconButtonStyle = {
@@ -57,6 +59,17 @@ const Header = ( {user} ) => {
     padding: '0',
   };
 
+  const LogoutButtonStyle = {
+    backgroundColor: 'transparent',
+    border: 'none',
+    cursor: 'pointer',
+    backgroundImage: `url(${LogoutSVG})`,
+    backgroundSize: 'cover',
+    width: '55px',
+    height: '55px',
+    padding: '0',
+  }
+
   if (location.pathname !== '/login') {
     return (
       <div style={headerStyle}>
@@ -70,9 +83,10 @@ const Header = ( {user} ) => {
           <Link to="/">
             <button style={MapButtonStyle} />
           </Link>
+          <button style={LogoutButtonStyle} onClick={gunlogin}></button>
         </div>
 
- 		<button onClick={gunlogin}>Logout</button>
+ 		  
 
       </div>
     );

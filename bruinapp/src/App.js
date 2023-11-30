@@ -12,54 +12,43 @@ import Create from './pages/create';
 import Home from './pages/home';
 import { useState, useEffect } from 'react';
 import {signOut } from 'firebase/auth';
-
 import "./App.css";
 
-export default function App (props) {
-	const [user, setUser] = useState(null);
-	const glogin = async () => {
-			const response = await signInWithGooglePopup();
-			
-			console.log(user)
-		}
-	const gunlogin = async () => {
-			signOut(auth)
-		}
-	useEffect(() => {
-		auth.onAuthStateChanged(user => {
-		  setUser(user);
+// ... (your other imports)
 
-		})
-	}, [])
-	if(user) {
-		return (
-			<>
-			<Router>
+export default function App(props) {
+  const [user, setUser] = useState(null);
 
-			<Header user={user}/>
+  const glogin = async () => {
+    const response = await signInWithGooglePopup();
+    console.log(user);
+  };
 
-			<Routes>
-				<Route exact path="/" Component={props => <Map user={user}/>} />
-				<Route path="/profile" Component={Profile} /> 
-				<Route path="/home" Component={Home} />
+  const gunlogin = async () => {
+    signOut(auth);
+  };
 
-				<Route path="/login" Component={Login} />
-				<Route exact path="/create" Component={props => <Create user={user}/>} />
-			</Routes>
-			</Router>
-			
-			</>
-		)
-	}
-	else {
-	    return (
-			<>
-			<button style={{width:50, height:50}} onClick={glogin}>LOGIN</button>
-			</>
-			
-		)
-	}
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      setUser(user);
+    });
+  }, []);
+
+  return (
+    <div style={{ position: 'relative' }}>
+      <Router>
+        {user && <Header user={user} />}
+        {user ? (
+          <Routes>
+            <Route exact path="/" element={<Map user={user} />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/home" element={<Home />} />
+            <Route exact path="/create" element={<Create user={user} />} />
+          </Routes>
+        ) : (
+					<Login />
+        )}
+      </Router>
+    </div>
+  );
 }
-
-
-
