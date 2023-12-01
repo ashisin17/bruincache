@@ -46,7 +46,6 @@ export default function App(props) {
             <Route exact path="/create" element={<Create user={user} />} />
 			<Route path="/search" element={<Search />} />
           </Routes>
-		  
         ) : (
 					<Login />
         )}
