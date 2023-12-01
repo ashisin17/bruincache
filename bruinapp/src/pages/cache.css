@@ -51,9 +51,20 @@ h1 {
   top: 5%;
   bottom: 5%;
 
-  /*background: rgba(254, 255, 255, 0.46);
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 40px;*/
+  /*background: rgba(254, 0, 255, 0.46);*/
+}
+
+.flex{
+  position: absolute;
+  left: 0%;
+  right: 0%;
+  top: 0%;
+  bottom: 14%;
+
+  display: flex;
+  flex-direction: column;
+
+  /*background: rgba(255, 254, 254, 0.46);*/
 }
 
 .subheading{
@@ -70,7 +81,7 @@ h1 {
 .des-bg{
   position: relative;
   top: 3%;
-  bottom: 80%;
+  flex: 1;
   overflow: auto;
 
   padding: 5%;
@@ -78,7 +89,15 @@ h1 {
   background: rgba(254, 255, 255, 0.46);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 40px;
-  
+}
+
+.bottom-margin {
+  position: absolute;
+  bottom: 0%;
+  left: 0%;
+  right: 0%;
+  height: 10%;
+  background: rgba(254, 255, 255, 0.46);
 }
 
 .solves {
@@ -91,7 +110,6 @@ h1 {
   text-align: center;
   bottom: 0%;
   font-size: 40px;
-  
 }
 
 .review-title {

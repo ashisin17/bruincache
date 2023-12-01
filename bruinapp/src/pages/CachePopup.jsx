@@ -85,12 +85,14 @@ function CachePopup(props) {
 		<div style={{width:'50%'}}>
 		
 		<div className = "info-bg">
-			<h1>{ props.cache.data().name }</h1>
-			<p className = "subheading"> {props.cache.data().location.lat.toString()}, {props.cache.data().location.lng.toString()}   |   { props.cache.data().owner }</p>
-			<div className = "des-bg">
-				<p>{ props.cache.data().desc }</p>
+			<div className = "info-bg flex">
+				<h1>{ props.cache.data().name }</h1>
+				<p className = "subheading"> {props.cache.data().location.lat.toString()}, {props.cache.data().location.lng.toString()}   |   { props.cache.data().owner }</p>
+				<div className = "des-bg">
+					<p>{ props.cache.data().desc }</p>
+				</div>
 			</div>
-		
+
 			<h1 className = "solves">{ count } SOLVES </h1>
 		</div>
 
