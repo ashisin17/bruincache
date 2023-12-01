@@ -73,9 +73,13 @@ const Header = ( {user} ) => {
   if (location.pathname !== '/login') {
     return (
       <div style={headerStyle}>
-
+		<Link to="/">
           <img src={BruinPNG} alt="BruinCache" style={{ height: '50px' }} />
+		  </Link>
         <div style={buttonContainerStyle}>
+			<Link to="/search">
+            <button >SEARCH</button>
+          </Link>
           <Link to="/profile">
             <button style={IconButtonStyle} />
           </Link>

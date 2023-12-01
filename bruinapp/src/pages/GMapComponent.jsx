@@ -136,15 +136,7 @@ function GMapComponent({
 		listPopups()
 	}
 	
-	<p>SEARCH HERE </p>
-	<p>Owner:</p><form><input type="text" id="search_owner"></input></form>
-	<button onClick={() => search_owner(document.getElementById("search_owner").value)}>SEND</button>
-		<ul>
-		{results.length > 0 && results.map(results => (
-			<ListResultItem res={results}/>
-		))}
-		</ul>
-		
+
 		
 	
 	
