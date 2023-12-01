@@ -1,9 +1,19 @@
+form {
+  width: 109%;
+  display: flex;
+}
+
 input[type=text] {
+  text-align: center;
   width: 100%;
   padding: 12px;
   border: 1px solid #ccc;
   border-radius: 4px;
   resize: vertical;
+}
+
+input, select, textarea{
+  box-sizing: border-box;
 }
 
 p {
@@ -49,7 +59,7 @@ h1 {
   left: 3%;
   right: 38.82%;
   top: 5%;
-  bottom: 5%;
+  bottom: 4%;
 
   /*background: rgba(254, 0, 255, 0.46);*/
 }
@@ -139,10 +149,12 @@ h1 {
 /* Rectangle 21 */
 .bg{
   position: absolute;
-  top: 12.65%;
-  left: 10%;
-  width: 80%;  
-  height: 80%;
+  top: 130px;
+  width: 1100px;  
+  height: 550px;
+
+  left: 50%;
+  transform: translateX(-50%);
 
   background: rgba(222, 242, 241, 0.9);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -171,23 +183,49 @@ h1 {
   right: 3%;
   top: 60.02%;
   bottom: 5%;
-  padding: 2% 4.3% 5% 2%;
+  padding: 2% 5% 5% 2%;
 
   background: #FEFFFF;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 40px;
 }
 
-.submit-button{
-  /* Submit Button */
-  position: relative;
-  width: 180px;
-  height:60px;
-  left: 25.5%;
-  top: 10%;
+.center-aligned {
+  position: absolute;
+  left: 0%;
+  right: 0%;
+  top: 0%;
+  bottom: 0%;
+
+  padding: 5%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.log-button{
+  position: absolute;
+  width: 45%;
+  height: 25%;
+
+  bottom: 8%;
+  left: 50%;
+  transform: translateX(-50%);
 
   background: #3AAFA9;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 22px;
   border: none;
+}
+
+.log-button-txt {
+  text-align: center;
+  font-size: clamp(10px, 20px, 20px);
+  font-style: normal;
+  font-weight: 600;
+  
+  letter-spacing: -0.02em;
+
+  color: #FEFFFF;
 }

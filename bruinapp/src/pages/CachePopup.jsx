@@ -25,18 +25,23 @@ function CachePopup(props) {
 				<>
 				<form>
 					<p>
-					<Rater total={5} onRate={ ({rating}) => setRate(rating)}/> 
-					<br/>Review (optional):<input type="text" id="review"></input></p>
+						Rating: <Rater total={5} onRate={ ({rating}) => setRate(rating)}/> 
+						<br/>
+						Add a Written Review... 
+						<input type="text" id="review"></input>
+					</p>
 				</form>
-				<button className = "submit-button" onClick={send_review}>
-					LOG CACHE
+				<button className = "log-button" onClick={send_review}>
+					<p className="log-button-txt">LOG CACHE</p>
 				</button>
 				</>
 			)
 		}
 		else {
 			return (<>
-				<p> You've already reviewed this cache! </p>
+				<div className="center-aligned">
+					<p style = {{textAlign: "center"}}> You've already reviewed this cache! </p>
+				</div>
 			</>)
 		}
 	}
@@ -81,9 +86,6 @@ function CachePopup(props) {
 	if(loaded) {return(<>
 	
 	<div className = "bg">	
-		<div style={{display:'flex'}}>
-		<div style={{width:'50%'}}>
-		
 		<div className = "info-bg">
 			<div className = "info-bg flex">
 				<h1>{ props.cache.data().name }</h1>
@@ -113,14 +115,12 @@ function CachePopup(props) {
 				</ul>
 			</div>
 		</div>
-		
-		</div>
-			<div className= "submit-review-bg">
-				{review_form()} 
-			</div>
+
+		<div className= "submit-review-bg">
+			{review_form()} 
 		</div>
 	</div>
-	
+			
 	</>)
 	}
 	
