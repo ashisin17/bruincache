@@ -45,9 +45,7 @@ const Search = () => {
     <div style={{ backgroundColor: 'white', padding: '20px' }}>
       <p>SEARCH FOR Owner</p>
       <p>Owner:</p>
-      <form>
         <input type="text" id="search_owner" />
-      </form>
       <button onClick={() => search_owner(document.getElementById("search_owner").value)}>
         SEND
       </button>
