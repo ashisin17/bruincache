@@ -3,7 +3,9 @@ import "./profile.css";
 // import header that chana will work on
 // if I have time, make it so we can't shrink screen smaller than the name text
 
-import ListResultItem from "./ListResultItem"
+import ProfileResultItem from "./ProfileResultItem"
+import ProfileFindItem from "./ProfileFindItem"
+
 import { useRef, useEffect } from "react";
 import { State, useState } from "react";
 import { getFirestore, collection, getDocs, addDoc, doc, query, where } from 'firebase/firestore/lite';
@@ -13,25 +15,57 @@ import CachePopup from "./CachePopup"
 
 const db = getFirestore(app);
 
-const caches = [];
 
 function Profile ( props ) {
 
-    const [results, setResults] = useState([])
-    async function search_owner(name) {
-		const res = [];
-		const q = query(collection(db, "caches"), where("owner", "==", name));
-		const querySnapshot = await getDocs(q);
-		console.log(querySnapshot); //
-		querySnapshot.forEach((doc) => {
-		  // doc.data() is never undefined for query doc snapshots
-		  console.log(doc.id, " => ", doc.data().name); //
-		  res.push({id: doc.id, name: doc.data().name});
-		});
-		setResults(res);
-        return 1;
-    }
+    const [ownedCaches, setOwnedCaches] = useState([]);
+	
+	const [ownedFinds, setOwnedFinds] = useState([]);
+	const [loadedC, setLoadedC] = useState(false);
+	const [loadedF, setLoadedF] = useState(false);
 
+    async function search_caches() {
+		
+			const results = [];
+			const q = query(collection(db, "caches"), where("owner", "==", props.user.email));
+			const querySnapshot = await getDocs(q);
+			//console.log(querySnapshot); //
+			querySnapshot.forEach((doc) => {
+			  // doc.data() is never undefined for query doc snapshots
+			  //console.log(doc.id, " => ", doc.data().name); //
+			  results.push(doc);
+			});
+			setOwnedCaches(results);
+			
+    }
+	async function search_finds() {
+		
+			const results = [];
+			const q = query(collection(db, "reviews"), where("owner", "==", props.user.email));
+			const querySnapshot = await getDocs(q);
+			//console.log(querySnapshot); //
+			querySnapshot.forEach((doc) => {
+			  // doc.data() is never undefined for query doc snapshots
+			  //console.log(doc.id, " => ", doc.data().name); //
+			  results.push(doc);
+			});
+			setOwnedFinds(results);
+			
+    }
+	if(!loadedC) {
+		setLoadedC(true);
+		search_caches();
+		//console.log(ownedCaches);
+		//console.log("DONE");
+		//ownedCaches.map((result) => console.log(result));
+	}
+	if(!loadedF) {
+		setLoadedF(true);
+		search_finds();
+		console.log(ownedFinds);
+		//console.log("DONE");
+		//ownedCaches.map((result) => console.log(result));
+	}
     return (
         <>
             <div class="background-rectangle"></div>
@@ -54,7 +88,13 @@ function Profile ( props ) {
                     </svg>
                 </div>
                 <div class="view-finds">Your Finds</div>  
+				
                 <div class="finds-text">Go out and find some caches!</div>
+				<ul>
+					{ownedCaches.length > 0 &&
+					  ownedCaches.map((result) => <ProfileResultItem res={result} key={result.id} />)}
+				</ul>
+				
             </div>
 
             <div class="caches">
@@ -65,7 +105,12 @@ function Profile ( props ) {
                     </svg>
                 </div>
                 <div class="view-caches">Your Caches</div>  
+				
                 <div class="caches-text">Go out and make some caches!</div>
+				<ul>
+					{ownedFinds.length > 0 &&
+					  ownedFinds.map((result) => <ProfileFindItem res={result} key={result.id} />)}
+				</ul>
             </div>
 
         </>
