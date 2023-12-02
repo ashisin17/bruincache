@@ -6,6 +6,8 @@ import {signOut } from 'firebase/auth';
 import MapSVG from './pictures/MapSVG.svg';
 import BruinPNG from './pictures/BruinCacheLogo.png';
 import LogoutSVG from './pictures/LogoutSVG.svg';
+import CreateSVG from './pictures/CreateSVG.svg';
+import SearchSVG from './pictures/SearchSVG.svg';
 
 
 
@@ -70,23 +72,48 @@ const Header = ( {user} ) => {
     padding: '0',
   }
 
+  const CreateButtonStyle = {
+    backgroundColor: 'transparent',
+    border: 'none',
+    cursor: 'pointer',
+    backgroundImage: `url(${CreateSVG})`,
+    backgroundSize: 'cover',
+    width: '55px',
+    height: '55px',
+    padding: '0',
+  }
+  const SearchButtonStyle = {
+    backgroundColor: 'transparent',
+    border: 'none',
+    cursor: 'pointer',
+    backgroundImage: `url(${SearchSVG})`,
+    backgroundSize: 'cover',
+    width: '55px',
+    height: '55px',
+    padding: '0',
+  }
+
+
+
   if (location.pathname !== '/login') {
     return (
       <div style={headerStyle}>
 		<Link to="/">
           <img src={BruinPNG} alt="BruinCache" style={{ height: '50px' }} />
-		  </Link>
+      </Link>
         <div style={buttonContainerStyle}>
-			<Link to="/search">
-            <button >SEARCH</button>
-          </Link>
-          <Link to="/profile">
-            <button style={IconButtonStyle} />
-          </Link>
-
-          <Link to="/">
-            <button style={MapButtonStyle} />
-          </Link>
+      <Link to="/create">
+        <button style={CreateButtonStyle} />
+      </Link>
+      <Link to="/search">
+        <button style={SearchButtonStyle}/>
+      </Link>
+      <Link to="/profile">
+        <button style={IconButtonStyle} />
+      </Link>
+      <Link to="/">
+        <button style={MapButtonStyle} />
+      </Link>
           <button style={LogoutButtonStyle} onClick={gunlogin}></button>
         </div>
 

@@ -4,7 +4,7 @@ import './login.css';
 import app from "../firebase";
 import { signInWithGooglePopup } from '../firebase';
 //import './login-Button.css';
-import LoginIcon from './pictures/LoginSVG.svg'; // Update the path
+import LoginIcon from './pictures/LoginPNG.png'; // Update the path
 
 const Login = () => {
   const glogin = async () => {
