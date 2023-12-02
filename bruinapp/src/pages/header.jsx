@@ -73,20 +73,22 @@ const Header = ( {user} ) => {
   if (location.pathname !== '/login') {
     return (
       <div style={headerStyle}>
-		<Link to="/">
+    <Link to="/">
           <img src={BruinPNG} alt="BruinCache" style={{ height: '50px' }} />
-		  </Link>
+      </Link>
         <div style={buttonContainerStyle}>
-			<Link to="/search">
-            <button >SEARCH</button>
-          </Link>
-          <Link to="/profile">
-            <button style={IconButtonStyle} />
-          </Link>
-
-          <Link to="/">
-            <button style={MapButtonStyle} />
-          </Link>
+      {/* <Link to="/create">
+        <button >CREATE</button>
+      </Link> */}
+      <Link to="/search">
+        <button >SEARCH</button>
+      </Link>
+      <Link to="/profile">
+        <button style={IconButtonStyle} />
+      </Link>
+      <Link to="/">
+        <button style={MapButtonStyle} />
+      </Link>
           <button style={LogoutButtonStyle} onClick={gunlogin}></button>
         </div>
 
