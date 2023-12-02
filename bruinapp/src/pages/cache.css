@@ -4,7 +4,6 @@ form {
 }
 
 input[type=text] {
-  text-align: center;
   width: 100%;
   padding: 12px;
   border: 1px solid #ccc;
