@@ -66,6 +66,46 @@ function Profile ( props ) {
 		//console.log("DONE");
 		//ownedCaches.map((result) => console.log(result));
 	}
+	
+	function list_finds() {
+		if(ownedFinds.length > 0) {
+			return (<>
+				<ul>
+					{ownedFinds.length > 0 &&
+					  ownedFinds.map((result) => <ProfileFindItem res={result} key={result.id} />)}
+				</ul>
+				</>
+			)
+		}
+		else {
+			return(
+			<div class="finds-text">Go out and find some caches!</div>
+			)
+		}
+			
+				
+	}
+	
+	function list_caches() {
+		if(ownedCaches.length > 0) {
+			return (<>
+				<ul>
+					{ownedCaches.length > 0 &&
+					  ownedCaches.map((result) => <ProfileResultItem res={result} key={result.id} />)}
+				</ul>
+				</>
+			)
+		}
+		else {
+			return(
+			<div class="finds-text">Go make some caches!</div>
+			)
+		}
+			
+				
+	}
+	
+	
     return (
         <>
             <div class="background-rectangle"></div>
@@ -88,12 +128,9 @@ function Profile ( props ) {
                     </svg>
                 </div>
                 <div class="view-finds">Your Finds</div>  
-				
-                <div class="finds-text">Go out and find some caches!</div>
-				<ul>
-					{ownedFinds.length > 0 &&
-					  ownedFinds.map((result) => <ProfileFindItem res={result} key={result.id} />)}
-				</ul>
+				<hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/>
+				{list_finds()}
+                
 				
             </div>
 
@@ -105,13 +142,9 @@ function Profile ( props ) {
                     </svg>
                 </div>
                 <div class="view-caches">Your Caches</div>  
-				
-                <div class="caches-text">Go out and make some caches!</div>
-				
-				<ul>
-					{ownedCaches.length > 0 &&
-					  ownedCaches.map((result) => <ProfileResultItem res={result} key={result.id} />)}
-				</ul>
+				<hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/> 
+				{list_caches()}
+                
             </div>
 
         </>
