@@ -12,6 +12,7 @@ import Create from './pages/create';
 import Home from './pages/home';
 import { useState, useEffect } from 'react';
 import {signOut } from 'firebase/auth';
+import Search from './pages/search';
 import "./App.css";
 
 
@@ -43,6 +44,7 @@ export default function App(props) {
             <Route path="/profile" element={<Profile user = {user}/>} />
             <Route path="/home" element={<Home />} />
             <Route exact path="/create" element={<Create user={user} />} />
+			<Route path="/search" element={<Search />} />
           </Routes>
         ) : (
 					<Login />
