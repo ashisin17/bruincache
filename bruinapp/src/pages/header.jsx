@@ -77,9 +77,9 @@ const Header = ( {user} ) => {
           <img src={BruinPNG} alt="BruinCache" style={{ height: '50px' }} />
       </Link>
         <div style={buttonContainerStyle}>
-      {/* <Link to="/create">
+      <Link to="/create">
         <button >CREATE</button>
-      </Link> */}
+      </Link>
       <Link to="/search">
         <button >SEARCH</button>
       </Link>
