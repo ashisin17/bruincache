@@ -91,8 +91,8 @@ function Profile ( props ) {
 				
                 <div class="finds-text">Go out and find some caches!</div>
 				<ul>
-					{ownedCaches.length > 0 &&
-					  ownedCaches.map((result) => <ProfileResultItem res={result} key={result.id} />)}
+					{ownedFinds.length > 0 &&
+					  ownedFinds.map((result) => <ProfileFindItem res={result} key={result.id} />)}
 				</ul>
 				
             </div>
@@ -107,9 +107,10 @@ function Profile ( props ) {
                 <div class="view-caches">Your Caches</div>  
 				
                 <div class="caches-text">Go out and make some caches!</div>
+				
 				<ul>
-					{ownedFinds.length > 0 &&
-					  ownedFinds.map((result) => <ProfileFindItem res={result} key={result.id} />)}
+					{ownedCaches.length > 0 &&
+					  ownedCaches.map((result) => <ProfileResultItem res={result} key={result.id} />)}
 				</ul>
             </div>
 
