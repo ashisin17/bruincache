@@ -1,3 +1,4 @@
+import "./profile.css"; // some overlap from profile frontend
 import ListResultItem from "./ListResultItem"
 import { useRef, useEffect } from "react";
 import { State, useState } from "react";
@@ -41,19 +42,29 @@ const Search = () => {
 		</>)
 		
   }
-  return (
-    <div style={{ backgroundColor: 'white', padding: '20px' }}>
-      <p>SEARCH FOR Owner</p>
-      <p>Owner:</p>
-        <input type="text" id="search_owner" />
-      <button onClick={() => search_owner(document.getElementById("search_owner").value)}>
-        SEND
-      </button>
-      <ul>
+
+  return ( <>
+		<div className='background-rectangle'></div>
+
+    <div className='search'>
+      <div className='search-text'>Search for Owner</div>
+
+      <div className='search-options'>
+        <label for="search_owner">Owner (email): 
+          <input type="text" id="search_owner" />
+        </label>
+      </div>
+
+      <button style={{marginTop: '10px', background:"#3AAFA9", fontSize:"20px", color:"#DEF2F1", width:"80px", fontFamily:"Istok Web", cursor:"pointer", borderRadius:"31.7699px"}} onClick={() => search_owner(document.getElementById("search_owner").value)}>Search</button>	
+    </div>
+
+    <div>
+      <ul className="search-caches-text">
         {results.length > 0 &&
           results.map((result) => <ListResultItem res={result} key={result.id} />)}
       </ul>
     </div>
+  </>
   )} 
 
 export default Search;
