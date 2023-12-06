@@ -14,12 +14,14 @@ git clone https://github.com/ashisin17/bruincache.git
 cd ./bruinapp
 npm install
 ```
-### Connect to the DATABASE [NEED TO CHANGE] @aidan
+### Connect to the DATABASE 
 #### Firebase Configuration
-Firebase Database URL: 
+1. Create a firebase project.
+2. Set up your personal firebase account details in firebase.js
 
 #### Reading and Writing
-
+1. Enable permissions for API reads and writes to the database inside your firebase portal
+2. The program will automatically connect to your firebase and use it for data storage.
 
 ### Run the APP
 If you are not already on bruinapp, make sure you cd into the bruinapp directory
