@@ -19,7 +19,7 @@ const Search = () => {
             querySnapshot.forEach((doc) => {
             // doc.data() is never undefined for query doc snapshots
             //console.log(doc.id, " => ", doc.data().name);
-            res.push({id: doc.id, name: doc.data().name});
+            res.push({id: doc.id, name: doc.data().name, desc: doc.data().desc});
             });
             setResults(res);
 		
