@@ -2,7 +2,7 @@
 ![BruinCache Logo](bruinapp/src/pages/pictures/BruinCacheLogo.png)
 
 ## What is BruinCache
-A web application with a map of pinned locations with clues that are meant to lead the user to hidden bruincaches sites placed around UCLA. Once the bruincache site is found, users will find a passcode that can be used on the web application to verify that they have found the site. They may also replace the bruincache that they find and/or write their name in the logbook of people that have previously visited the bruincache site. The web applications will require users to make a profile to log the bruincaches they’ve already found or post their own hidden bruincaches. Once users use the passcode to verify they have found the bruincache, they are able to leave a comment and see comments that other users have left.
+A web application with a map of pinned locations with clues that are meant to lead the user to hidden bruincaches sites placed around UCLA. Once the bruincache site is found, users may replace the bruincache that they find and/or write their name in the logbook of people that have previously visited the bruincache site. The web applications will require users to make a profile to log the bruincaches they’ve already found or post their own hidden bruincaches. Users are able to leave reviews for the caches they've found by rating on a star system and typing a review. They are also able to see the reviews from other users. 
 
 ## How to run BruinCache on YOUR machine
 ### Get the CODE
