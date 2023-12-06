@@ -1,7 +1,5 @@
 import React from "react";
 import "./profile.css";
-// import header that chana will work on
-// if I have time, make it so we can't shrink screen smaller than the name text
 
 import ProfileResultItem from "./ProfileResultItem"
 import ProfileFindItem from "./ProfileFindItem"
@@ -19,52 +17,38 @@ const db = getFirestore(app);
 function Profile ( props ) {
 
     const [ownedCaches, setOwnedCaches] = useState([]);
-	
 	const [ownedFinds, setOwnedFinds] = useState([]);
 	const [loadedC, setLoadedC] = useState(false);
 	const [loadedF, setLoadedF] = useState(false);
 
     async function search_caches() {
-		
 			const results = [];
 			const q = query(collection(db, "caches"), where("owner", "==", props.user.email));
 			const querySnapshot = await getDocs(q);
-			//console.log(querySnapshot); //
 			querySnapshot.forEach((doc) => {
 			  // doc.data() is never undefined for query doc snapshots
-			  //console.log(doc.id, " => ", doc.data().name); //
 			  results.push(doc);
 			});
-			setOwnedCaches(results);
-			
+			setOwnedCaches(results);	
     }
 	async function search_finds() {
-		
 			const results = [];
 			const q = query(collection(db, "reviews"), where("owner", "==", props.user.email));
 			const querySnapshot = await getDocs(q);
-			//console.log(querySnapshot); //
 			querySnapshot.forEach((doc) => {
 			  // doc.data() is never undefined for query doc snapshots
-			  //console.log(doc.id, " => ", doc.data().name); //
 			  results.push(doc);
 			});
 			setOwnedFinds(results);
-			
     }
+
 	if(!loadedC) {
 		setLoadedC(true);
 		search_caches();
-		//console.log(ownedCaches);
-		//console.log("DONE");
-		//ownedCaches.map((result) => console.log(result));
 	}
 	if(!loadedF) {
 		setLoadedF(true);
 		search_finds();
-		console.log(ownedFinds);
-		//console.log("DONE");
-		//ownedCaches.map((result) => console.log(result));
 	}
 	
 	function list_finds() {
@@ -81,11 +65,8 @@ function Profile ( props ) {
 			return(
 			<div class="finds-text">Go out and find some caches!</div>
 			)
-		}
-			
-				
+		}			
 	}
-	
 	function list_caches() {
 		if(ownedCaches.length > 0) {
 			return (<>
@@ -100,11 +81,8 @@ function Profile ( props ) {
 			return(
 			<div class="finds-text">Go make some caches!</div>
 			)
-		}
-			
-				
+		}		
 	}
-	
 	
     return (
         <>
@@ -128,10 +106,7 @@ function Profile ( props ) {
                     </svg>
                 </div>
                 <div class="view-finds">Your Finds</div>  
-				<hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/>
-				{list_finds()}
-                
-				
+				<div class="finds-text">{list_finds()}</div>	
             </div>
 
             <div class="caches">
@@ -142,9 +117,7 @@ function Profile ( props ) {
                     </svg>
                 </div>
                 <div class="view-caches">Your Caches</div>  
-				<hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/> 
-				{list_caches()}
-                
+                <div class="caches-text">{list_caches()}</div>
             </div>
 
         </>
@@ -152,4 +125,3 @@ function Profile ( props ) {
 };
 
 export default Profile;
-

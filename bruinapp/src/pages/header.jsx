@@ -6,6 +6,8 @@ import {signOut } from 'firebase/auth';
 import MapSVG from './pictures/MapSVG.svg';
 import BruinPNG from './pictures/BruinCacheLogo.png';
 import LogoutSVG from './pictures/LogoutSVG.svg';
+import CreateSVG from './pictures/CreateSVG.svg';
+import SearchSVG from './pictures/SearchSVG.svg';
 
 
 
@@ -70,6 +72,29 @@ const Header = ( {user} ) => {
     padding: '0',
   }
 
+  const CreateButtonStyle = {
+    backgroundColor: 'transparent',
+    border: 'none',
+    cursor: 'pointer',
+    backgroundImage: `url(${CreateSVG})`,
+    backgroundSize: 'cover',
+    width: '55px',
+    height: '55px',
+    padding: '0',
+  }
+  const SearchButtonStyle = {
+    backgroundColor: 'transparent',
+    border: 'none',
+    cursor: 'pointer',
+    backgroundImage: `url(${SearchSVG})`,
+    backgroundSize: 'cover',
+    width: '55px',
+    height: '55px',
+    padding: '0',
+  }
+
+
+
   if (location.pathname !== '/login') {
     return (
       <div style={headerStyle}>
@@ -78,10 +103,10 @@ const Header = ( {user} ) => {
       </Link>
         <div style={buttonContainerStyle}>
       <Link to="/create">
-        <button >CREATE</button>
+        <button style={CreateButtonStyle} />
       </Link>
       <Link to="/search">
-        <button >SEARCH</button>
+        <button style={SearchButtonStyle}/>
       </Link>
       <Link to="/profile">
         <button style={IconButtonStyle} />
