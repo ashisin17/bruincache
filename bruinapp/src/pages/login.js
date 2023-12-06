@@ -36,6 +36,7 @@ const Login = () => {
     const svgImage = new Image();
     svgImage.src = LoginIcon;
     svgImage.alt = 'Login';
+    svgImage.classList.add('google-icon'); 
 
     loginButton.appendChild(svgImage);
     loginButton.addEventListener('click', glogin);
